@@ -7,4 +7,8 @@ set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
 
 project(Tetris)
 
-add_executable(Tetris src/main.cpp src/playfield.cpp src/tetromino.cpp)
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIRS} src)
+
+add_executable(Tetris src/controller.cpp src/game.cpp src/main.cpp src/playfield.cpp src/renderer.cpp src/tetromino.cpp)
+target_link_libraries(Tetris ${SDL2_LIBRARIES})
