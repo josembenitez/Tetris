@@ -6,7 +6,10 @@
 #include "renderer.h"
 
 
-renderer::renderer()
+renderer::renderer(std::size_t window_width, std::size_t window_height,
+                   std::size_t well_width, std::size_t well_height)
+    : window_width(window_width), window_height(window_height),
+      well_width(well_width), well_height(well_height)
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -15,8 +18,8 @@ renderer::renderer()
     }
 
     sdl_window = SDL_CreateWindow("Tetris", SDL_WINDOWPOS_CENTERED,
-                                  SDL_WINDOWPOS_CENTERED, 480, 640,
-                                  SDL_WINDOW_SHOWN);
+                                  SDL_WINDOWPOS_CENTERED, window_width,
+                                  window_height, SDL_WINDOW_SHOWN);
     if (sdl_window == nullptr)
     {
         std::cerr << "Window could not be created.\n";

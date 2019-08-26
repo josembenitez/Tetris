@@ -14,7 +14,7 @@
 class game
 {
 public:
-    game();
+    game(std::size_t well_width, std::size_t well_height);
 
     void run(const controller &cntrllr, renderer &rndrr);
 

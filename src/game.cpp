@@ -7,8 +7,8 @@
 #include "tetromino.h"
 
 
-game::game()
-    : pf(playfield(10, 20)),
+game::game(std::size_t well_width, std::size_t well_height)
+    : pf(playfield(well_width, well_height)),
       x(0),
       y(0),
       engine(dev()),
