@@ -31,6 +31,10 @@ input controller::get_input() const
                 inpt = input::move_left;
                 break;
 
+            case SDLK_ESCAPE:
+                inpt = input::quit;
+                break;
+
             default:
                 break;
             }
