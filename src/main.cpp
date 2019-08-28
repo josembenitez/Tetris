@@ -12,7 +12,7 @@ int main()
     constexpr std::size_t window_width = scale * well_width;
     constexpr std::size_t window_height = scale * well_height;
 
-    renderer rndrr { window_width, window_height, well_width, well_height };
+    renderer rndrr { window_width, window_height };
     controller cntrllr;
     game g { well_width, well_height };
     g.run(cntrllr, rndrr);
