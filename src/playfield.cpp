@@ -15,18 +15,15 @@ playfield::playfield(std::size_t width, std::size_t height)
 
 bool playfield::can_tetromino_move_to(const tetromino &t, int x, int y) const
 {
-    x += t.x_offset();
-    y += t.y_offset();
+    const int x_start = x + t.x_offset();
+    const int y_start = y + t.y_offset();
 
     // Check whether the tetromino fits within the playfield
-    if (x < 0 || x + t.width() > this->width ||
-        y < 0 || y + t.heigth() > this->height)
+    if (x_start < 0 || x_start + t.width() > this->width ||
+        y_start < 0 || y_start + t.heigth() > this->height)
     {
         return false;
     }
-
-    x -= t.x_offset();
-    y -= t.y_offset();
 
     // Check now whether every cell to be filled in by the tetromino is empty
     const std::vector<int> tetrions = t.to_vector();
@@ -34,7 +31,7 @@ bool playfield::can_tetromino_move_to(const tetromino &t, int x, int y) const
     {
         const std::size_t x_t = i % t.bounding_box_size();
         const std::size_t y_t = i / t.bounding_box_size();
-        if (well[(y + y_t) * width + x + x_t] != cell_state::empty && tetrions[i])
+        if (tetrions[i] && well[(y + y_t) * width + x + x_t] != cell_state::empty)
         {
             return false;
         }
