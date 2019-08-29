@@ -33,6 +33,7 @@ private:
     bool move_down();
     bool move_left();
     bool move_right();
+    bool playfield_is_filled_up() const;
     bool rotate_clockwise();
     bool update(input inpt);
 };

@@ -44,15 +44,15 @@ game::~game()
 
 void game::run(const controller &cntrllr, renderer &rndrr)
 {
-    bool gameover = false;
+    bool running = true;
 
     get_next_tetromino();
 
-    while (!gameover)
+    while (running)
     {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
         const input inpt = cntrllr.get_input();
-        gameover = update(inpt);
+        running = update(inpt);
         rndrr.render(pf, *current, x, y);
     }
 }
@@ -149,6 +149,12 @@ bool game::move_right()
 }
 
 
+bool game::playfield_is_filled_up() const
+{
+    return !pf.can_tetromino_move_to(*current, x, y);
+}
+
+
 bool game::rotate_clockwise()
 {
     bool success = false;
@@ -167,7 +173,7 @@ bool game::rotate_clockwise()
 
 bool game::update(input inpt)
 {
-    bool quit = false;
+    bool running = true;
 
     switch (inpt)
     {
@@ -188,12 +194,12 @@ bool game::update(input inpt)
         break;
 
     case input::quit:
-        quit = true;
+        running = false;
         break;
 
     default:
         break;
     }
 
-    return quit;
+    return running && !playfield_is_filled_up();
 }
