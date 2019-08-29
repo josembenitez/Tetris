@@ -1,25 +1,10 @@
 
-#include <iostream>
 #include <thread>
 
 #include "controller.h"
 #include "game.h"
 #include "playfield.h"
 #include "tetromino.h"
-
-
-void print_tetromino(const tetromino &t)
-{
-    std::vector<int> tetrions = t.to_vector();
-    for (std::size_t i = 0; i < tetrions.size(); ++i)
-    {
-        std::cout << tetrions[i] << ", ";
-        if ((i + 1) % t.bounding_box_size() == 0)
-        {
-            std::cout << '\n';
-        }
-    }
-}
 
 
 game::game(std::size_t well_width, std::size_t well_height)
@@ -70,37 +55,30 @@ void game::get_next_tetromino()
     {
     case 0:
         current = new i_tetromino;
-        std::cout << "New I tetromino...\n";
         break;
     
     case 1:
         current = new j_tetromino;
-        std::cout << "New J tetromino...\n";
         break;
     
     case 2:
         current = new l_tetromino;
-        std::cout << "New L tetromino...\n";
         break;
 
     case 3:
         current = new o_tetromino;
-        std::cout << "New O tetromino...\n";
         break;
 
     case 4:
         current = new s_tetromino;
-        std::cout << "New S tetromino...\n";
         break;
     
     case 5:
         current = new t_tetromino;
-        std::cout << "New T tetromino...\n";
         break;
     
     default:
         current = new z_tetromino;
-        std::cout << "New Z tetromino...\n";
         break;
     }
 }
@@ -116,7 +94,6 @@ bool game::move_down()
     }
     else
     {
-        std::cout << "Touching ground...\n";
         pf.store_tetromino_into(*current, x, y);
         get_next_tetromino();
         x = y = 0;
