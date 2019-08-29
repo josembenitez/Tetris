@@ -24,12 +24,15 @@ enum class cell_state
 class playfield
 {
 public:
-    playfield(std::size_t width, std::size_t height);
+    playfield(std::size_t rows, std::size_t height);
     ~playfield() = default;
     
     bool can_tetromino_move_to(const tetromino &t, int x, int y) const;
     std::size_t clear_rows();
+    std::size_t columns() const;
     bool is_filled_up() const;
+    std::size_t rows() const;
+    void store_tetromino_into(const tetromino &t, int x, int y);
     std::vector<int> to_vector() const;
 
 private:
@@ -38,7 +41,6 @@ private:
     std::vector<cell_state> well;
 
     cell_state get_cell_state_for(const tetromino &t);
-    void store_tetromino_into(const tetromino &t, int x, int y);
 };
 
 

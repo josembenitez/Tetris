@@ -1,4 +1,7 @@
 
+#include <algorithm>
+#include <iostream>
+
 #include "playfield.h"
 
 
@@ -12,29 +15,73 @@ playfield::playfield(std::size_t width, std::size_t height)
 
 bool playfield::can_tetromino_move_to(const tetromino &t, int x, int y) const
 {
+    x += t.x_offset();
+    y += t.y_offset();
+
     // Check whether the tetromino fits within the playfield
-    if (x + t.x_offset() < 0 ||
-        x + t.x_offset() + t.width() > this->width ||
-        y + t.y_offset() < 0 ||
-        y + t.y_offset() + t.heigth() > this->height)
+    if (x < 0 || x + t.width() > this->width ||
+        y < 0 || y + t.heigth() > this->height)
     {
         return false;
     }
 
+    x -= t.x_offset();
+    y -= t.y_offset();
+
     // Check now whether every cell to be filled in by the tetromino is empty
     const std::vector<int> tetrions = t.to_vector();
-    for (std::size_t i = 0; i < t.width(); ++i)
+    for (std::size_t i = 0; i < tetrions.size(); ++i)
     {
-        for (std::size_t j = 0; j < t.heigth(); ++j)
+        const std::size_t x_t = i % t.bounding_box_size();
+        const std::size_t y_t = i / t.bounding_box_size();
+        if (well[(y + y_t) * width + x + x_t] != cell_state::empty && tetrions[i])
         {
-            if (well[(y + j) * width + (x + i)] != cell_state::empty && tetrions[j * t.width() + i])
-            {
-                return false;
-            }
+            return false;
         }
     }
 
     return true;
+}
+
+
+std::size_t playfield::columns() const
+{
+    return width;
+}
+
+
+std::size_t playfield::rows() const
+{
+    return height;
+}
+
+
+void playfield::store_tetromino_into(const tetromino &t, int x, int y)
+{
+//     x += t.x_offset();
+//     y += t.y_offset();
+
+//    const std::vector<int> tetrions = t.to_vector();
+//     for (std::size_t i = 0; i < t.width(); ++i)
+//     {
+//         for (std::size_t j = 0; j < t.heigth(); ++j)
+//         {
+//             if (tetrions[(j + t.y_offset()) * t.width() + i + t.x_offset()])
+//             {
+//                 well[(y + j) * width + (x + i)] = get_cell_state_for(t);
+//             }
+//         }
+//     }
+    const std::vector<int> tetrions = t.to_vector();
+    for (std::size_t i = 0; i < tetrions.size(); ++i)
+    {
+        if (tetrions[i])
+        {
+            const std::size_t x_t = i % t.bounding_box_size();
+            const std::size_t y_t = i / t.bounding_box_size();
+            well[(y + y_t) * width + x + x_t] = get_cell_state_for(t);
+        }
+    }
 }
 
 
@@ -66,17 +113,9 @@ cell_state playfield::get_cell_state_for(const tetromino &t)
 }
 
 
-void playfield::store_tetromino_into(const tetromino &t, int x, int y)
+std::vector<int> playfield::to_vector() const
 {
-    const std::vector<int> tetrions = t.to_vector();
-    for (std::size_t i = 0; i < t.width(); ++i)
-    {
-        for (std::size_t j = 0; j < t.heigth(); ++j)
-        {
-            if (tetrions[j * t.width() + i])
-            {
-                well[(y + j) * width + (x + i)] = get_cell_state_for(t);
-            }
-        }
-    }
+    std::vector<int> result(well.size());
+    std::transform(well.begin(), well.end(), result.begin(), [] (cell_state st) { return (int) st; });
+    return result;
 }
