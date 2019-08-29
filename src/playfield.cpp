@@ -58,20 +58,6 @@ std::size_t playfield::rows() const
 
 void playfield::store_tetromino_into(const tetromino &t, int x, int y)
 {
-//     x += t.x_offset();
-//     y += t.y_offset();
-
-//    const std::vector<int> tetrions = t.to_vector();
-//     for (std::size_t i = 0; i < t.width(); ++i)
-//     {
-//         for (std::size_t j = 0; j < t.heigth(); ++j)
-//         {
-//             if (tetrions[(j + t.y_offset()) * t.width() + i + t.x_offset()])
-//             {
-//                 well[(y + j) * width + (x + i)] = get_cell_state_for(t);
-//             }
-//         }
-//     }
     const std::vector<int> tetrions = t.to_vector();
     for (std::size_t i = 0; i < tetrions.size(); ++i)
     {
