@@ -168,7 +168,7 @@ const std::map<orientation, std::vector<int>> j_tetromino::rotation_states = {
 
     { orientation::flat_right, { 0, 1, 0,
                                  0, 1, 0,
-                                 0, 1, 1, },
+                                 1, 1, 0, },
     },
 };
 
