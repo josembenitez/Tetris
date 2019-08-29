@@ -30,6 +30,8 @@ public:
     bool can_tetromino_move_to(const tetromino &t, int x, int y) const;
     std::size_t clear_rows();
     std::size_t columns() const;
+    std::vector<std::size_t> filled_rows() const;
+    bool is_row_filled(std::size_t row) const;
     std::size_t rows() const;
     void store_tetromino_into(const tetromino &t, int x, int y);
     std::vector<int> to_vector() const;

@@ -95,6 +95,7 @@ bool game::move_down()
     else
     {
         pf.store_tetromino_into(*current, x, y);
+        pf.clear_rows();
         get_next_tetromino();
         x = y = 0;
     }
