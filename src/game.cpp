@@ -43,6 +43,17 @@ void game::run(const controller &cntrllr, renderer &rndrr)
 }
 
 
+std::size_t game::drop_down()
+{
+    std::size_t count = 0;
+    while (move_down())
+    {
+        ++count;
+    }
+    return count;
+}
+
+
 void game::get_next_tetromino()
 {
     if (current)
@@ -155,6 +166,10 @@ bool game::update(input inpt)
 
     switch (inpt)
     {
+    case input::drop:
+        drop_down();
+        break;
+        
     case input::move_down:
         move_down();
         break;

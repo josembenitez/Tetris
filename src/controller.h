@@ -6,11 +6,12 @@
 enum class input
 {
     none,
-    move_right,
+    drop,
+    move_down,
     move_left,
+    move_right,
     rotate_clockwise,
     rotate_counter_clockwise,
-    move_down,
     quit,
 };
 

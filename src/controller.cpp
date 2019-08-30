@@ -35,6 +35,10 @@ input controller::get_input() const
                 inpt = input::quit;
                 break;
 
+            case SDLK_SPACE:
+                inpt = input::drop;
+                break;
+
             default:
                 break;
             }

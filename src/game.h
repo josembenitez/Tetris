@@ -29,6 +29,7 @@ private:
     std::mt19937 engine;
     std::uniform_int_distribution<int> random_tetromino;
 
+    std::size_t drop_down();
     void get_next_tetromino();
     bool move_down();
     bool move_left();
