@@ -3,6 +3,7 @@
 #define GAME_H
 
 
+#include <chrono>
 #include <random>
 
 #include "controller.h"
@@ -24,6 +25,7 @@ private:
     int x;
     int y;
     tetromino *current;
+    std::chrono::time_point<std::chrono::system_clock> last_update;
 
     std::random_device dev;
     std::mt19937 engine;

@@ -1,4 +1,5 @@
 
+#include <chrono>
 #include <thread>
 
 #include "controller.h"
@@ -12,6 +13,7 @@ game::game(std::size_t well_width, std::size_t well_height)
       x(0),
       y(0),
       current(nullptr),
+      last_update(std::chrono::system_clock::now()),
       engine(dev()),
       random_tetromino(0, 7)
 {
@@ -92,6 +94,8 @@ void game::get_next_tetromino()
         current = new z_tetromino;
         break;
     }
+
+    last_update = std::chrono::system_clock::now();
 }
 
 
@@ -204,6 +208,14 @@ bool game::update(input inpt)
 
     case input::rotate_counterclockwise:
         rotate_counterclockwise();
+        break;
+
+    case input::none:
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - last_update).count() > 1000)
+        {
+            move_down();
+            last_update = std::chrono::system_clock::now();
+        }
         break;
 
     case input::quit:
