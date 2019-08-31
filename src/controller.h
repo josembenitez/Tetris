@@ -11,7 +11,7 @@ enum class input
     move_left,
     move_right,
     rotate_clockwise,
-    rotate_counter_clockwise,
+    rotate_counterclockwise,
     quit,
 };
 

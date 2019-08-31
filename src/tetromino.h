@@ -50,7 +50,7 @@ public:
     virtual tetromino_color color() const = 0;
     virtual std::size_t heigth() const = 0;
     virtual void rotate_clockwise() = 0;
-    virtual void rotate_counter_clockwise() = 0;
+    virtual void rotate_counterclockwise() = 0;
     virtual std::vector<int> to_vector() const = 0;
     virtual tetromino_type type() const = 0;
     virtual std::size_t width() const = 0;
@@ -69,7 +69,7 @@ protected:
 
 public:
     virtual void rotate_clockwise();
-    virtual void rotate_counter_clockwise();
+    virtual void rotate_counterclockwise();
 };
 
 

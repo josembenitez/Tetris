@@ -154,7 +154,23 @@ bool game::rotate_clockwise()
     }
     else
     {
-        current->rotate_counter_clockwise();
+        current->rotate_counterclockwise();
+    }
+    return success;   
+}
+
+
+bool game::rotate_counterclockwise()
+{
+    bool success = false;
+    current->rotate_counterclockwise();
+    if (pf.can_tetromino_move_to(*current, x, y))
+    {
+        success = true;
+    }
+    else
+    {
+        current->rotate_clockwise();
     }
     return success;   
 }
@@ -184,6 +200,10 @@ bool game::update(input inpt)
 
     case input::rotate_clockwise:
         rotate_clockwise();
+        break;
+
+    case input::rotate_counterclockwise:
+        rotate_counterclockwise();
         break;
 
     case input::quit:

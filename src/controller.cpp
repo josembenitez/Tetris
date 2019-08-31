@@ -16,7 +16,12 @@ input controller::get_input() const
             switch (e.key.keysym.sym)
             {
             case SDLK_UP:
+            case SDLK_x:
                 inpt = input::rotate_clockwise;
+                break;
+
+            case SDLK_z:
+                inpt = input::rotate_counterclockwise;
                 break;
             
             case SDLK_DOWN:

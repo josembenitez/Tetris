@@ -33,7 +33,7 @@ void base_tetromino::rotate_clockwise()
 }
 
 
-void base_tetromino::rotate_counter_clockwise()
+void base_tetromino::rotate_counterclockwise()
 {
     switch (ornt)
     {
