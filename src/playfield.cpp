@@ -143,9 +143,7 @@ cell_state playfield::get_cell_state_for(const tetromino &t)
 }
 
 
-std::vector<int> playfield::to_vector() const
+std::vector<cell_state> playfield::to_vector() const
 {
-    std::vector<int> result(well.size());
-    std::transform(well.begin(), well.end(), result.begin(), [] (cell_state st) { return (int) st; });
-    return result;
+    return std::vector(well);
 }

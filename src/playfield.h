@@ -34,7 +34,7 @@ public:
     bool is_row_filled(std::size_t row) const;
     std::size_t rows() const;
     void store_tetromino_into(const tetromino &t, int x, int y);
-    std::vector<int> to_vector() const;
+    std::vector<cell_state> to_vector() const;
 
 private:
     std::size_t width;

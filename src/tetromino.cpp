@@ -93,6 +93,12 @@ std::size_t i_tetromino::bounding_box_size() const
 }
 
 
+tetromino_color i_tetromino::color() const
+{
+    return tetromino_color::cyan;
+}
+
+
 std::size_t i_tetromino::heigth() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 1 : 4;
@@ -179,6 +185,12 @@ std::size_t j_tetromino::bounding_box_size() const
 }
 
 
+tetromino_color j_tetromino::color() const
+{
+    return tetromino_color::blue;
+}
+
+
 std::size_t j_tetromino::heigth() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 2 : 3;
@@ -244,6 +256,12 @@ std::size_t l_tetromino::bounding_box_size() const
 }
 
 
+tetromino_color l_tetromino::color() const
+{
+    return tetromino_color::orange;
+}
+
+
 std::size_t l_tetromino::heigth() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 2 : 3;
@@ -303,6 +321,12 @@ const std::map<orientation, std::vector<int>> o_tetromino::rotation_states = {
 std::size_t o_tetromino::bounding_box_size() const
 {
     return 2;
+}
+
+
+tetromino_color o_tetromino::color() const
+{
+    return tetromino_color::yellow;
 }
 
 
@@ -372,6 +396,12 @@ std::size_t s_tetromino::bounding_box_size() const
 }
 
 
+tetromino_color s_tetromino::color() const
+{
+    return tetromino_color::green;
+}
+
+
 std::size_t s_tetromino::heigth() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 2 : 3;
@@ -438,6 +468,12 @@ std::size_t t_tetromino::bounding_box_size() const
 }
 
 
+tetromino_color t_tetromino::color() const
+{
+    return tetromino_color::purple;
+}
+
+
 std::size_t t_tetromino::heigth() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 2 : 3;
@@ -501,6 +537,12 @@ const std::map<orientation, std::vector<int>> z_tetromino::rotation_states = {
 std::size_t z_tetromino::bounding_box_size() const
 {
     return 3;
+}
+
+
+tetromino_color z_tetromino::color() const
+{
+    return tetromino_color::red;
 }
 
 

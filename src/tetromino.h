@@ -28,6 +28,18 @@ enum class tetromino_type
 };
 
 
+enum class tetromino_color
+{
+    cyan,
+    blue,
+    orange,
+    yellow,
+    green,
+    purple,
+    red,
+};
+
+
 class tetromino
 {
 public:
@@ -35,6 +47,7 @@ public:
 
 public:
     virtual std::size_t bounding_box_size() const = 0;
+    virtual tetromino_color color() const = 0;
     virtual std::size_t heigth() const = 0;
     virtual void rotate_clockwise() = 0;
     virtual void rotate_counter_clockwise() = 0;
@@ -70,6 +83,7 @@ public:
     ~i_tetromino() = default;
 
     virtual std::size_t bounding_box_size() const;
+    virtual tetromino_color color() const;
     virtual std::size_t heigth() const;
     virtual std::vector<int> to_vector() const;
     virtual tetromino_type type() const;
@@ -89,6 +103,7 @@ public:
     ~j_tetromino() = default;
 
     virtual std::size_t bounding_box_size() const;
+    virtual tetromino_color color() const;
     virtual std::size_t heigth() const;
     virtual std::vector<int> to_vector() const;
     virtual tetromino_type type() const;
@@ -108,6 +123,7 @@ public:
     ~l_tetromino() = default;
 
     virtual std::size_t bounding_box_size() const;
+    virtual tetromino_color color() const;
     virtual std::size_t heigth() const;
     virtual std::vector<int> to_vector() const;
     virtual tetromino_type type() const;
@@ -127,6 +143,7 @@ public:
     ~o_tetromino() = default;
     
     virtual std::size_t bounding_box_size() const;
+    virtual tetromino_color color() const;
     virtual std::size_t heigth() const;
     virtual std::vector<int> to_vector() const;
     virtual tetromino_type type() const;
@@ -146,6 +163,7 @@ public:
     ~s_tetromino() = default;
 
     virtual std::size_t bounding_box_size() const;
+    virtual tetromino_color color() const;
     virtual std::size_t heigth() const;
     virtual std::vector<int> to_vector() const;
     virtual tetromino_type type() const;
@@ -165,6 +183,7 @@ public:
     ~t_tetromino() = default;
 
     virtual std::size_t bounding_box_size() const;
+    virtual tetromino_color color() const;
     virtual std::size_t heigth() const;
     virtual std::vector<int> to_vector() const;
     virtual tetromino_type type() const;
@@ -184,6 +203,7 @@ public:
     ~z_tetromino() = default;
 
     virtual std::size_t bounding_box_size() const;
+    virtual tetromino_color color() const;
     virtual std::size_t heigth() const;
     virtual std::vector<int> to_vector() const;
     virtual tetromino_type type() const;

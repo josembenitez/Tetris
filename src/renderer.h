@@ -22,6 +22,9 @@ private:
     SDL_Renderer *sdl_renderer;
     std::size_t window_width;
     std::size_t window_height;
+
+    void get_color_coordinates(cell_state st, uint8_t &r, uint8_t &g, uint8_t &b) const;
+    void get_color_coordinates(tetromino_color color, uint8_t &r, uint8_t &g, uint8_t &b) const;
 };
 
 
