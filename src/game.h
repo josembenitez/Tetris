@@ -23,6 +23,7 @@ public:
 private:
     static constexpr std::size_t lines_to_change_level = 10;
     static constexpr std::size_t max_level = 10;
+    static constexpr std::size_t delay_interval = 50;
 
     std::size_t delay;
     std::size_t score;

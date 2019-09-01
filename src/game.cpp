@@ -251,7 +251,7 @@ bool game::update(input inpt)
 
 void game::update_delay()
 {
-    delay = ((max_level + 1 - level) * 100);
+    delay = ((max_level + 1 - level) * delay_interval);
 }
 
 
