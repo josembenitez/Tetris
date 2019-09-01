@@ -21,6 +21,8 @@ public:
     void run(const controller &cntrllr, renderer &rndrr, std::size_t fps);
 
 private:
+    uint score;
+    uint level;
     playfield pf;
     int x;
     int y;

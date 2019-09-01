@@ -9,7 +9,9 @@
 
 
 game::game(std::size_t well_width, std::size_t well_height)
-    : pf(playfield(well_width, well_height)),
+    : score(0),
+      level(0),
+      pf(playfield(well_width, well_height)),
       x(0),
       y(0),
       current(nullptr),
@@ -42,7 +44,7 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
 
         const input inpt = cntrllr.get_input();
         running = update(inpt);
-        rndrr.render(pf, *current, x, y);
+        rndrr.render(pf, *current, x, y, score);
 
         const auto frame_end = std::chrono::system_clock::now();
         const auto frame_duration = std::chrono::duration_cast<std::chrono::milliseconds>(frame_end - frame_start).count();
@@ -61,6 +63,7 @@ std::size_t game::drop_down()
     {
         ++count;
     }
+    score += 2 * count;
     return count;
 }
 
@@ -121,8 +124,10 @@ bool game::move_down()
     }
     else
     {
+        constexpr uint ppl[] { 0, 40, 100, 300, 1200, };
         pf.store_tetromino_into(*current, x, y);
-        pf.clear_rows();
+        const std::size_t count = pf.clear_rows();
+        score += (ppl[count] * (level + 1));
         get_next_tetromino();
     }
     return success;
