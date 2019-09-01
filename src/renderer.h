@@ -25,6 +25,9 @@ private:
 
     void get_color_coordinates(cell_state st, uint8_t &r, uint8_t &g, uint8_t &b) const;
     void get_color_coordinates(tetromino_color color, uint8_t &r, uint8_t &g, uint8_t &b) const;
+    void render_background(std::size_t cell_width, std::size_t cell_height);
+    void render_playfield(const playfield &pf, std::size_t cell_width, std::size_t cell_height);
+    void render_tetromino(const tetromino &t, int x, int y, std::size_t cell_width, std::size_t cell_height);
 };
 
 

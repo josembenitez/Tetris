@@ -44,48 +44,12 @@ renderer::~renderer()
 
 void renderer::render(const playfield &pf, const tetromino &t, int x, int y, uint score, uint level)
 {
-    uint8_t r = 0x0, g = 0x0, b = 0x0;
+    const std::size_t cell_width = window_width / pf.columns();
+    const std::size_t cell_height = window_height / pf.rows();
 
-    SDL_Rect block;
-    block.w = window_width / pf.columns();
-    block.h = window_height / pf.rows();
-
-    // Clear screen
-    get_color_coordinates(cell_state::empty, r, g, b);
-    SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
-    SDL_RenderClear(sdl_renderer);
-
-    // Render tetromino
-    get_color_coordinates(t.color(), r, g, b);
-    SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
-    const std::vector<int> tetrions = t.to_vector();
-    for (std::size_t i = 0; i < tetrions.size(); ++i)
-    {
-        if (tetrions[i])
-        {
-            const std::size_t x_t = i % t.bounding_box_size();
-            const std::size_t y_t = i / t.bounding_box_size();
-            block.x = (x + x_t) * block.w;
-            block.y = (y + y_t) * block.h;
-            SDL_RenderFillRect(sdl_renderer, &block);
-        }
-    }
-
-    // Render playfield
-    const auto cells = pf.to_vector();
-    for (std::size_t i = 0; i < cells.size(); ++i)
-    {
-        if (cells[i] != cell_state::empty)
-        {
-            const std::size_t x_c = i % pf.columns();
-            const std::size_t y_c = i / pf.columns();
-            block.x = x_c * block.w;
-            block.y = y_c * block.h;
-            get_color_coordinates(cells[i], r, g, b);
-            SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
-            SDL_RenderFillRect(sdl_renderer, &block);
-        }
-    }
+    render_background(cell_width, cell_height);
+    render_tetromino(t, x, y, cell_width, cell_height);
+    render_playfield(pf, cell_width, cell_height);
 
     // Update window title with the current score
     const std::string title { "Tetris - Score: " + std::to_string(score) + ", Level: " + std::to_string(level) };
@@ -173,5 +137,77 @@ void renderer::get_color_coordinates(tetromino_color color, uint8_t &r, uint8_t 
     
     default:
         break;
+    }
+}
+
+
+void renderer::render_background(std::size_t cell_width, std::size_t cell_height)
+{
+    uint8_t r = 0x0, g = 0x0, b = 0x0;
+
+    // Clear screen with "empty" color
+    get_color_coordinates(cell_state::empty, r, g, b);
+    SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
+    SDL_RenderClear(sdl_renderer);
+
+    // Draw some grid lines to help the player
+    SDL_SetRenderDrawColor(sdl_renderer, 0x4E, 0x4E, 0x4E, 0xFF);
+    for (std::size_t x = cell_width; x < window_width; x += cell_width)
+    {
+        SDL_RenderDrawLine(sdl_renderer, x, 0, x, window_height);
+    }
+    for (std::size_t y = cell_height; y < window_height; y += cell_height)
+    {
+        SDL_RenderDrawLine(sdl_renderer, 0, y, window_width, y);
+    }
+}
+
+
+void renderer::render_playfield(const playfield &pf, std::size_t cell_width, std::size_t cell_height)
+{
+    uint8_t r = 0x0, g = 0x0, b = 0x0;
+
+    SDL_Rect block;
+    block.w = cell_width;
+    block.h = cell_height;
+
+    const auto cells = pf.to_vector();
+    for (std::size_t i = 0; i < cells.size(); ++i)
+    {
+        if (cells[i] != cell_state::empty)
+        {
+            const std::size_t x_c = i % pf.columns();
+            const std::size_t y_c = i / pf.columns();
+            block.x = x_c * block.w;
+            block.y = y_c * block.h;
+            get_color_coordinates(cells[i], r, g, b);
+            SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
+            SDL_RenderFillRect(sdl_renderer, &block);
+        }
+    }
+}
+
+
+void renderer::render_tetromino(const tetromino &t, int x, int y, std::size_t cell_width, std::size_t cell_height)
+{
+    uint8_t r = 0x0, g = 0x0, b = 0x0;
+
+    SDL_Rect block;
+    block.w = cell_width;
+    block.h = cell_height;
+
+    get_color_coordinates(t.color(), r, g, b);
+    SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
+    const std::vector<int> tetrions = t.to_vector();
+    for (std::size_t i = 0; i < tetrions.size(); ++i)
+    {
+        if (tetrions[i])
+        {
+            const std::size_t x_t = i % t.bounding_box_size();
+            const std::size_t y_t = i / t.bounding_box_size();
+            block.x = (x + x_t) * block.w;
+            block.y = (y + y_t) * block.h;
+            SDL_RenderFillRect(sdl_renderer, &block);
+        }
     }
 }
