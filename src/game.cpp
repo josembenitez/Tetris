@@ -9,7 +9,9 @@
 
 
 game::game(std::size_t well_width, std::size_t well_height)
-    : delay(0),
+    : gameover(false),
+      quit(false),
+      delay(0),
       score(0),
       cleared_lines(0),
       level(1),
@@ -41,12 +43,12 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
 
     get_next_tetromino();
 
-    while (running)
+    while (!gameover && !quit)
     {
         const auto frame_start = std::chrono::system_clock::now();
 
         const input inpt = cntrllr.get_input();
-        running = update(inpt);
+        update(inpt);
         rndrr.render(pf, *current, x, y, score, level);
 
         const auto frame_end = std::chrono::system_clock::now();
@@ -55,6 +57,11 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(target_frame_duration - frame_duration));
         }
+    }
+
+    if (!quit)
+    {
+        while (cntrllr.get_input() != input::quit);
     }
 }
 
@@ -199,10 +206,8 @@ bool game::rotate_counterclockwise()
 }
 
 
-bool game::update(input inpt)
+void game::update(input inpt)
 {
-    bool running = true;
-
     switch (inpt)
     {
     case input::drop:
@@ -238,14 +243,14 @@ bool game::update(input inpt)
         break;
 
     case input::quit:
-        running = false;
+        quit = true;
         break;
 
     default:
         break;
     }
 
-    return running && !playfield_is_filled_up();
+    gameover = playfield_is_filled_up();
 }
 
 

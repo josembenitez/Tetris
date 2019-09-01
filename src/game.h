@@ -25,6 +25,8 @@ private:
     static constexpr std::size_t max_level = 10;
     static constexpr std::size_t delay_interval = 50;
 
+    bool gameover;
+    bool quit;
     std::size_t delay;
     std::size_t score;
     std::size_t cleared_lines;
@@ -47,7 +49,7 @@ private:
     bool playfield_is_filled_up() const;
     bool rotate_clockwise();
     bool rotate_counterclockwise();
-    bool update(input inpt);
+    void update(input inpt);
     void update_delay();
     void update_level(std::size_t lines);
     void update_score(std::size_t cleared_lines, std::size_t dropped_lines);

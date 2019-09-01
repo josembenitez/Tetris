@@ -11,7 +11,11 @@ input controller::get_input() const
 
     if (SDL_PollEvent(&e))
     {
-        if (e.type == SDL_KEYDOWN)
+        if (e.type == SDL_QUIT)
+        {
+            inpt = input::quit;
+        }
+        else if (e.type == SDL_KEYDOWN)
         {
             switch (e.key.keysym.sym)
             {
