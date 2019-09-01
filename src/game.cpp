@@ -95,6 +95,9 @@ void game::get_next_tetromino()
         break;
     }
 
+    x = (pf.columns() - current->bounding_box_size()) / 2;
+    y = 0;
+
     last_update = std::chrono::system_clock::now();
 }
 
@@ -112,7 +115,6 @@ bool game::move_down()
         pf.store_tetromino_into(*current, x, y);
         pf.clear_rows();
         get_next_tetromino();
-        x = y = 0;
     }
     return success;
 }
