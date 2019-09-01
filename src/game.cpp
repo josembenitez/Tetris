@@ -29,18 +29,27 @@ game::~game()
 }
 
 
-void game::run(const controller &cntrllr, renderer &rndrr)
+void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
 {
+    const std::size_t target_frame_duration = 1000 / fps;
     bool running = true;
 
     get_next_tetromino();
 
     while (running)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        const auto frame_start = std::chrono::system_clock::now();
+
         const input inpt = cntrllr.get_input();
         running = update(inpt);
         rndrr.render(pf, *current, x, y);
+
+        const auto frame_end = std::chrono::system_clock::now();
+        const auto frame_duration = std::chrono::duration_cast<std::chrono::milliseconds>(frame_end - frame_start).count();
+        if (frame_duration < target_frame_duration)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(target_frame_duration - frame_duration));
+        }
     }
 }
 

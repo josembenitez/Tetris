@@ -18,7 +18,7 @@ public:
     game(std::size_t well_width, std::size_t well_height);
     ~game();
 
-    void run(const controller &cntrllr, renderer &rndrr);
+    void run(const controller &cntrllr, renderer &rndrr, std::size_t fps);
 
 private:
     playfield pf;

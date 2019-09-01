@@ -11,9 +11,10 @@ int main()
     constexpr std::size_t well_height = 20;
     constexpr std::size_t window_width = scale * well_width;
     constexpr std::size_t window_height = scale * well_height;
+    constexpr std::size_t fps = 60;
 
     renderer rndrr { window_width, window_height };
     controller cntrllr;
     game g { well_width, well_height };
-    g.run(cntrllr, rndrr);
+    g.run(cntrllr, rndrr, fps);
 }
