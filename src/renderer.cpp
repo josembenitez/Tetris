@@ -42,7 +42,7 @@ renderer::~renderer()
 }
 
 
-void renderer::render(const playfield &pf, const tetromino &t, int x, int y, uint score)
+void renderer::render(const playfield &pf, const tetromino &t, int x, int y, uint score, uint level)
 {
     uint8_t r = 0x0, g = 0x0, b = 0x0;
 
@@ -88,7 +88,7 @@ void renderer::render(const playfield &pf, const tetromino &t, int x, int y, uin
     }
 
     // Update window title with the current score
-    const std::string title { "Tetris - Score: " + std::to_string(score) + " points" };
+    const std::string title { "Tetris - Score: " + std::to_string(score) + ", Level: " + std::to_string(level) };
     SDL_SetWindowTitle(sdl_window, title.c_str());
 
     // Update screen

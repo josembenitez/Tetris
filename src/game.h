@@ -21,8 +21,13 @@ public:
     void run(const controller &cntrllr, renderer &rndrr, std::size_t fps);
 
 private:
-    uint score;
-    uint level;
+    static constexpr std::size_t lines_to_change_level = 10;
+    static constexpr std::size_t max_level = 10;
+
+    std::size_t delay;
+    std::size_t score;
+    std::size_t cleared_lines;
+    std::size_t level;
     playfield pf;
     int x;
     int y;
@@ -42,6 +47,9 @@ private:
     bool rotate_clockwise();
     bool rotate_counterclockwise();
     bool update(input inpt);
+    void update_delay();
+    void update_level(std::size_t lines);
+    void update_score(std::size_t cleared_lines, std::size_t dropped_lines);
 };
 
 

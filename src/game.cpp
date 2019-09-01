@@ -9,8 +9,10 @@
 
 
 game::game(std::size_t well_width, std::size_t well_height)
-    : score(0),
-      level(0),
+    : delay(0),
+      score(0),
+      cleared_lines(0),
+      level(1),
       pf(playfield(well_width, well_height)),
       x(0),
       y(0),
@@ -19,6 +21,7 @@ game::game(std::size_t well_width, std::size_t well_height)
       engine(dev()),
       random_tetromino(0, 7)
 {
+    update_delay();
 }
 
 
@@ -44,7 +47,7 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
 
         const input inpt = cntrllr.get_input();
         running = update(inpt);
-        rndrr.render(pf, *current, x, y, score);
+        rndrr.render(pf, *current, x, y, score, level);
 
         const auto frame_end = std::chrono::system_clock::now();
         const auto frame_duration = std::chrono::duration_cast<std::chrono::milliseconds>(frame_end - frame_start).count();
@@ -63,7 +66,7 @@ std::size_t game::drop_down()
     {
         ++count;
     }
-    score += 2 * count;
+    update_score(0, count);
     return count;
 }
 
@@ -124,10 +127,10 @@ bool game::move_down()
     }
     else
     {
-        constexpr uint ppl[] { 0, 40, 100, 300, 1200, };
         pf.store_tetromino_into(*current, x, y);
         const std::size_t count = pf.clear_rows();
-        score += (ppl[count] * (level + 1));
+        update_score(count, 0);
+        update_level(count);
         get_next_tetromino();
     }
     return success;
@@ -227,7 +230,7 @@ bool game::update(input inpt)
         break;
 
     case input::none:
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - last_update).count() > 1000)
+        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - last_update).count() > delay)
         {
             move_down();
             last_update = std::chrono::system_clock::now();
@@ -243,4 +246,33 @@ bool game::update(input inpt)
     }
 
     return running && !playfield_is_filled_up();
+}
+
+
+void game::update_delay()
+{
+    delay = ((max_level + 1 - level) * 100);
+}
+
+
+void game::update_level(std::size_t lines)
+{
+    if (level < max_level)
+    {
+        cleared_lines += lines;
+        if (cleared_lines >= lines_to_change_level)
+        {
+            ++level;
+            cleared_lines -= lines_to_change_level;
+        }
+        update_delay();
+    }
+}
+
+
+void game::update_score(std::size_t cleared_lines, std::size_t dropped_lines)
+{
+    constexpr uint ppl[] { 0, 40, 100, 300, 1200, };
+    score += 2 * dropped_lines;
+    score += (ppl[cleared_lines] * (level + 1));
 }

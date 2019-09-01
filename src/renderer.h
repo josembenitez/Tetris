@@ -15,7 +15,7 @@ public:
     renderer(std::size_t window_width, std::size_t window_height);
     ~renderer();
 
-    void render(const playfield &pf, const tetromino &t, int x, int y, uint score);
+    void render(const playfield &pf, const tetromino &t, int x, int y, uint score, uint level);
 
 private:
     SDL_Window *sdl_window;
