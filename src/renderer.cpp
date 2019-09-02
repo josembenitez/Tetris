@@ -30,8 +30,14 @@ renderer::renderer(std::size_t window_width, std::size_t window_height)
     sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
     if (sdl_renderer == nullptr)
     {
-        std::cerr << "Renderer could not be created.\n";
-        std::cerr << "SDL_Error: " << SDL_GetError() << '\n';
+        std::cerr << "Hardware Accelearted Renderer could not be created.\n";
+        std::cerr << "Using Software renderer.\n";
+        sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_SOFTWARE);
+        if (sdl_renderer == nullptr)
+        {
+            std::cerr << "Software Renderer could not be created.\n";
+            std::cerr << "SDL_Error: " << SDL_GetError() << '\n';
+        }
     }
 }
 
