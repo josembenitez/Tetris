@@ -5,7 +5,8 @@
 
 #include <vector>
 
-#include "tetromino.h"
+
+class tetromino;
 
 
 enum class cell_state

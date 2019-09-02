@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "playfield.h"
+#include "tetromino.h"
 
 
 playfield::playfield(std::size_t width, std::size_t height)

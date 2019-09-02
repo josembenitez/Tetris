@@ -5,8 +5,10 @@
 
 #include "SDL.h"
 
-#include "playfield.h"
-#include "tetromino.h"
+
+class playfield;
+class tetromino;
+enum class tetromino_color;
 
 
 class renderer

@@ -7,10 +7,11 @@
 #include <memory>
 #include <random>
 
-#include "controller.h"
 #include "playfield.h"
-#include "renderer.h"
 #include "tetromino.h"
+
+class controller;
+class renderer;
 
 
 class game

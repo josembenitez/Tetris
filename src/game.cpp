@@ -6,6 +6,7 @@
 #include "controller.h"
 #include "game.h"
 #include "playfield.h"
+#include "renderer.h"
 #include "tetromino.h"
 
 

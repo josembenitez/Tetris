@@ -5,6 +5,7 @@
 
 #include "playfield.h"
 #include "renderer.h"
+#include "tetromino.h"
 
 
 renderer::renderer(std::size_t window_width, std::size_t window_height)
