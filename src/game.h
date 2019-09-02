@@ -4,6 +4,7 @@
 
 
 #include <chrono>
+#include <memory>
 #include <random>
 
 #include "controller.h"
@@ -16,7 +17,7 @@ class game
 {
 public:
     game(std::size_t well_width, std::size_t well_height);
-    ~game();
+    ~game() = default;
 
     void run(const controller &cntrllr, renderer &rndrr, std::size_t fps);
 
@@ -34,7 +35,7 @@ private:
     playfield pf;
     int x;
     int y;
-    tetromino *current;
+    std::unique_ptr<tetromino> current;
     std::chrono::time_point<std::chrono::system_clock> last_update;
 
     std::random_device dev;

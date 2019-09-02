@@ -1,5 +1,6 @@
 
 #include <chrono>
+#include <memory>
 #include <thread>
 
 #include "controller.h"
@@ -24,15 +25,6 @@ game::game(std::size_t well_width, std::size_t well_height)
       random_tetromino(0, 7)
 {
     update_delay();
-}
-
-
-game::~game()
-{
-    if (current)
-    {
-        delete current;
-    }
 }
 
 
@@ -80,40 +72,35 @@ std::size_t game::drop_down()
 
 void game::get_next_tetromino()
 {
-    if (current)
-    {
-        delete current;
-    }
-
     const int type = random_tetromino(engine);
     switch (type)
     {
     case 0:
-        current = new i_tetromino;
+        current = std::make_unique<i_tetromino>();
         break;
     
     case 1:
-        current = new j_tetromino;
+        current = std::make_unique<j_tetromino>();
         break;
     
     case 2:
-        current = new l_tetromino;
+        current = std::make_unique<l_tetromino>();
         break;
 
     case 3:
-        current = new o_tetromino;
+        current = std::make_unique<o_tetromino>();
         break;
 
     case 4:
-        current = new s_tetromino;
-        break;
+        current = std::make_unique<s_tetromino>();
+       break;
     
     case 5:
-        current = new t_tetromino;
+        current = std::make_unique<t_tetromino>();
         break;
     
     default:
-        current = new z_tetromino;
+        current = std::make_unique<z_tetromino>();
         break;
     }
 
