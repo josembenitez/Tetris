@@ -54,7 +54,11 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
 
     if (!quit)
     {
-        while (cntrllr.get_input() != input::quit);
+        // Wait until the user quits the game by closing the window
+        while (cntrllr.get_input() != input::quit)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(target_frame_duration));
+        }
     }
 }
 
