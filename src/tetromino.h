@@ -68,8 +68,8 @@ protected:
     orientation ornt;
 
 public:
-    virtual void rotate_clockwise();
-    virtual void rotate_counterclockwise();
+    void rotate_clockwise() override;
+    void rotate_counterclockwise() override;
 };
 
 
@@ -82,14 +82,14 @@ public:
     i_tetromino() = default;
     ~i_tetromino() = default;
 
-    virtual std::size_t bounding_box_size() const;
-    virtual tetromino_color color() const;
-    virtual std::size_t heigth() const;
-    virtual std::vector<int> to_vector() const;
-    virtual tetromino_type type() const;
-    virtual std::size_t width() const;
-    virtual std::size_t x_offset() const;
-    virtual std::size_t y_offset() const;
+    std::size_t bounding_box_size() const override;
+    tetromino_color color() const override;
+    std::size_t heigth() const override;
+    std::vector<int> to_vector() const override;
+    tetromino_type type() const override;
+    std::size_t width() const override;
+    std::size_t x_offset() const override;
+    std::size_t y_offset() const override;
 };
     
 
@@ -102,14 +102,14 @@ public:
     j_tetromino() = default;
     ~j_tetromino() = default;
 
-    virtual std::size_t bounding_box_size() const;
-    virtual tetromino_color color() const;
-    virtual std::size_t heigth() const;
-    virtual std::vector<int> to_vector() const;
-    virtual tetromino_type type() const;
-    virtual std::size_t width() const;
-    virtual std::size_t x_offset() const;
-    virtual std::size_t y_offset() const;
+    std::size_t bounding_box_size() const override;
+    tetromino_color color() const override;
+    std::size_t heigth() const override;
+    std::vector<int> to_vector() const override;
+    tetromino_type type() const override;
+    std::size_t width() const override;
+    std::size_t x_offset() const override;
+    std::size_t y_offset() const override;
 };
 
 
@@ -122,14 +122,14 @@ public:
     l_tetromino() = default;
     ~l_tetromino() = default;
 
-    virtual std::size_t bounding_box_size() const;
-    virtual tetromino_color color() const;
-    virtual std::size_t heigth() const;
-    virtual std::vector<int> to_vector() const;
-    virtual tetromino_type type() const;
-    virtual std::size_t width() const;
-    virtual std::size_t x_offset() const;
-    virtual std::size_t y_offset() const;
+    std::size_t bounding_box_size() const override;
+    tetromino_color color() const override;
+    std::size_t heigth() const override;
+    std::vector<int> to_vector() const override;
+    tetromino_type type() const override;
+    std::size_t width() const override;
+    std::size_t x_offset() const override;
+    std::size_t y_offset() const override;
 };
     
 
@@ -142,14 +142,14 @@ public:
     o_tetromino() = default;
     ~o_tetromino() = default;
     
-    virtual std::size_t bounding_box_size() const;
-    virtual tetromino_color color() const;
-    virtual std::size_t heigth() const;
-    virtual std::vector<int> to_vector() const;
-    virtual tetromino_type type() const;
-    virtual std::size_t width() const;
-    virtual std::size_t x_offset() const;
-    virtual std::size_t y_offset() const;
+    std::size_t bounding_box_size() const override;
+    tetromino_color color() const override;
+    std::size_t heigth() const override;
+    std::vector<int> to_vector() const override;
+    tetromino_type type() const override;
+    std::size_t width() const override;
+    std::size_t x_offset() const override;
+    std::size_t y_offset() const override;
 };
     
 
@@ -162,14 +162,14 @@ public:
     s_tetromino() = default;
     ~s_tetromino() = default;
 
-    virtual std::size_t bounding_box_size() const;
-    virtual tetromino_color color() const;
-    virtual std::size_t heigth() const;
-    virtual std::vector<int> to_vector() const;
-    virtual tetromino_type type() const;
-    virtual std::size_t width() const;
-    virtual std::size_t x_offset() const;
-    virtual std::size_t y_offset() const;
+    std::size_t bounding_box_size() const override;
+    tetromino_color color() const override;
+    std::size_t heigth() const override;
+    std::vector<int> to_vector() const override;
+    tetromino_type type() const override;
+    std::size_t width() const override;
+    std::size_t x_offset() const override;
+    std::size_t y_offset() const override;
 };
     
 
@@ -182,14 +182,14 @@ public:
     t_tetromino() = default;
     ~t_tetromino() = default;
 
-    virtual std::size_t bounding_box_size() const;
-    virtual tetromino_color color() const;
-    virtual std::size_t heigth() const;
-    virtual std::vector<int> to_vector() const;
-    virtual tetromino_type type() const;
-    virtual std::size_t width() const;
-    virtual std::size_t x_offset() const;
-    virtual std::size_t y_offset() const;
+    std::size_t bounding_box_size() const override;
+    tetromino_color color() const override;
+    std::size_t heigth() const override;
+    std::vector<int> to_vector() const override;
+    tetromino_type type() const override;
+    std::size_t width() const override;
+    std::size_t x_offset() const override;
+    std::size_t y_offset() const override;
 };
     
 
@@ -202,14 +202,14 @@ public:
     z_tetromino() = default;
     ~z_tetromino() = default;
 
-    virtual std::size_t bounding_box_size() const;
-    virtual tetromino_color color() const;
-    virtual std::size_t heigth() const;
-    virtual std::vector<int> to_vector() const;
-    virtual tetromino_type type() const;
-    virtual std::size_t width() const;
-    virtual std::size_t x_offset() const;
-    virtual std::size_t y_offset() const;
+    std::size_t bounding_box_size() const override;
+    tetromino_color color() const override;
+    std::size_t heigth() const override;
+    std::vector<int> to_vector() const override;
+    tetromino_type type() const override;
+    std::size_t width() const override;
+    std::size_t x_offset() const override;
+    std::size_t y_offset() const override;
 };
 
 
