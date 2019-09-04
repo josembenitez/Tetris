@@ -78,7 +78,7 @@ Basically, the game flow is the following: once a new tetromino enters the playf
 
 Hopefully, the project compiles and runs with no problem whatsoever, so this point can be ticked off from the *required* criteria list. Also, this is all contained within a README file with building instructions and a moderately detailed project overview, so the rest of criteria should be addressed as well.
 
-Please find below the list of optional rubric points which are met by this projet. 
+Please find below the list of optional rubric points which are met by this projet. Those which are not explicitly identified in the source code are features scattered all over the files.
 
 ### Loop, Functions, I/O
 
@@ -87,17 +87,17 @@ Please find below the list of optional rubric points which are met by this proje
 ### Object Oriented Programming
 
 - The project uses Object Oriented Programming techniques.
-- Classes use appropriate access specifiers for class members.
-- Class constructors utilize member initialization lists.
+- Classes use appropriate access specifiers for class members (see, for instance, [controller.h](src/controller.h), line 27 or [game.h](src/game.h), lines 22 and 44).
+- Class constructors utilize member initialization lists (see, for instance, [game.cpp](src/game.cpp), line 14 or [renderer.cpp](src/renderer.cpp), line 24).
 - Classes abstract implementation details from their interfaces.
 - Classes encapsulate behavior.
-- Classes follow an appropriate inheritance hierarchy.
-- Overloaded functions allow the same function to operate on different parameters.
-- Derived class functions override virtual base class functions.
+- Classes follow an appropriate inheritance hierarchy (see the classes defined at [tetromino.h](src/tetromino.h)).
+- Overloaded functions allow the same function to operate on different parameters (see, for instance, the declaration of `get_color_coordinates` at [renderer.h](src/renderer.h), lines 76 and 85).
+- Derived class functions override virtual base class functions (see the classes defined at [tetromino.h](src/tetromino.h)).
 
 ### Memory management
 
 - The project makes use of references in function declarations.
-- The project uses destructors appropriately.
-- The project uses scope / Resource Acquisition Is Initialization (RAII) where appropriate.
-- The project uses smart pointers instead of raw pointers.
+- The project uses destructors appropriately (see [renderer.cpp](src/renderer.cpp), line 57).
+- The project uses scope / Resource Acquisition Is Initialization (RAII) where appropriate (see, for instance, [renderer.cpp](src/renderer.cpp), lines 26 and 57).
+- The project uses smart pointers instead of raw pointers (see [game.h](src/game.h), line 97, for the use of a `unique_pointer`).
