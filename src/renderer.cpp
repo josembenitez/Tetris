@@ -137,12 +137,12 @@ void renderer::render_background(std::size_t cell_width, std::size_t cell_height
 {
     uint8_t r = 0x0, g = 0x0, b = 0x0;
 
-    // Clear screen with "empty" color
+    // Clear screen with "empty" color.
     get_color_coordinates(cell_state::empty, r, g, b);
     SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
     SDL_RenderClear(sdl_renderer);
 
-    // Draw some grid lines to help the player
+    // Draw some grid lines to help the player.
     SDL_SetRenderDrawColor(sdl_renderer, 0x4E, 0x4E, 0x4E, 0xFF);
     for (std::size_t x = cell_width; x < window_width; x += cell_width)
     {

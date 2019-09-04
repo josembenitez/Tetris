@@ -44,6 +44,9 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
         update(inpt);
         rndrr.render(pf, *current, x, y, score, level);
 
+        // If the time for this frame is too small (i.e. frame_duration is
+        // smaller than the target ms per frame), delay the loop o achieve
+        // the correct frame rate.
         const auto frame_end = std::chrono::system_clock::now();
         const auto frame_duration = std::chrono::duration_cast<std::chrono::milliseconds>(frame_end - frame_start).count();
         if (frame_duration < target_frame_duration)
@@ -54,7 +57,7 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
 
     if (!quit)
     {
-        // Wait until the user quits the game by closing the window
+        // Wait until the user quits the game by closing the window.
         while (cntrllr.get_input() != input::quit)
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(target_frame_duration));
@@ -66,6 +69,7 @@ void game::run(const controller &cntrllr, renderer &rndrr, std::size_t fps)
 std::size_t game::drop_down()
 {
     std::size_t count = 0;
+    // Ground is reached when the tetromino cannot go further down.
     while (move_down())
     {
         ++count;
@@ -109,9 +113,11 @@ void game::get_next_tetromino()
         break;
     }
 
+    // Sets the starting point within the playfield (half of the topmost row).
     x = (pf.columns() - current->bounding_box_size()) / 2;
     y = 0;
 
+    // Update the time point to calculate the next falling instant.
     last_update = std::chrono::system_clock::now();
 }
 
@@ -126,6 +132,8 @@ bool game::move_down()
     }
     else
     {
+        // The tetromino has touched ground if it cannot go further down, so store it
+        // into the playfield and update game state.
         pf.store_tetromino_into(*current, x, y);
         const std::size_t count = pf.clear_rows();
         update_score(count, 0);
@@ -227,6 +235,7 @@ void game::update(input inpt)
         break;
 
     case input::none:
+        // Is it time to make the current tetromino fall one more cell?
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - last_update).count() > delay)
         {
             move_down();
