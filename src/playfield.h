@@ -15,13 +15,7 @@ class tetromino;
 enum class cell_state
 {
     empty,
-    filled_with_i,
-    filled_with_j,
-    filled_with_l,
-    filled_with_o,
-    filled_with_s,
-    filled_with_t,
-    filled_with_z,
+    busy,
 };
 
 
@@ -111,14 +105,6 @@ private:
      * Vector representing the actual playfield.
      */
     std::vector<cell_state> well;
-
-    /**
-     * Gets the state of a cell when it's occupied by the given tetromino.
-     * 
-     * @return The state of a cell (as defined by #cell_state) when it's occupied by the
-     * given tetromino.
-     */
-    cell_state get_cell_state_for(const tetromino &t);
 };
 
 

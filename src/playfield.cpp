@@ -110,36 +110,8 @@ void playfield::store_tetromino_into(const tetromino &t, int x, int y)
         {
             const std::size_t x_t = i % t.bounding_box_size();
             const std::size_t y_t = i / t.bounding_box_size();
-            well[(y + y_t) * width + x + x_t] = get_cell_state_for(t);
+            well[(y + y_t) * width + x + x_t] = cell_state::busy;
         }
-    }
-}
-
-
-cell_state playfield::get_cell_state_for(const tetromino &t)
-{
-    switch (t.type())
-    {
-    case tetromino_type::i_block:
-        return cell_state::filled_with_i;
-
-    case tetromino_type::j_block:
-        return cell_state::filled_with_j;
-        
-    case tetromino_type::l_block:
-        return cell_state::filled_with_l;
-        
-    case tetromino_type::o_block:
-        return cell_state::filled_with_o;
-        
-    case tetromino_type::s_block:
-        return cell_state::filled_with_s;
-        
-    case tetromino_type::t_block:
-        return cell_state::filled_with_t;
-        
-    default: /* tetromino_type::z_block */
-        return cell_state::filled_with_z;   
     }
 }
 

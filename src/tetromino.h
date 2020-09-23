@@ -20,21 +20,6 @@ enum class orientation
 
 
 /**
- * Types of tetrominoes.
- */
-enum class tetromino_type
-{
-    i_block,
-    j_block,
-    l_block,
-    o_block,
-    s_block,
-    t_block,
-    z_block,
-};
-
-
-/**
  * Colors of tetrominoes.
  */
 enum class tetromino_color
@@ -94,12 +79,6 @@ public:
      * there is a block and `0` otherwise.
      */
     virtual std::vector<int> to_vector() const = 0;
-    /**
-     * Returns this tetromino's type as defined by #tetromino_type.
-     * 
-     * @return This tetromino's width as defined by #tetromino_type.
-     */
-    virtual tetromino_type type() const = 0;
     /**
      * Returns this tetromino's width (in blocks).
      * 
@@ -166,7 +145,6 @@ public:
     tetromino_color color() const override;
     std::size_t heigth() const override;
     std::vector<int> to_vector() const override;
-    tetromino_type type() const override;
     std::size_t width() const override;
     std::size_t x_offset() const override;
     std::size_t y_offset() const override;
@@ -195,7 +173,6 @@ public:
     tetromino_color color() const override;
     std::size_t heigth() const override;
     std::vector<int> to_vector() const override;
-    tetromino_type type() const override;
     std::size_t width() const override;
     std::size_t x_offset() const override;
     std::size_t y_offset() const override;
@@ -224,7 +201,6 @@ public:
     tetromino_color color() const override;
     std::size_t heigth() const override;
     std::vector<int> to_vector() const override;
-    tetromino_type type() const override;
     std::size_t width() const override;
     std::size_t x_offset() const override;
     std::size_t y_offset() const override;
@@ -253,7 +229,6 @@ public:
     tetromino_color color() const override;
     std::size_t heigth() const override;
     std::vector<int> to_vector() const override;
-    tetromino_type type() const override;
     std::size_t width() const override;
     std::size_t x_offset() const override;
     std::size_t y_offset() const override;
@@ -282,7 +257,6 @@ public:
     tetromino_color color() const override;
     std::size_t heigth() const override;
     std::vector<int> to_vector() const override;
-    tetromino_type type() const override;
     std::size_t width() const override;
     std::size_t x_offset() const override;
     std::size_t y_offset() const override;
@@ -311,7 +285,6 @@ public:
     tetromino_color color() const override;
     std::size_t heigth() const override;
     std::vector<int> to_vector() const override;
-    tetromino_type type() const override;
     std::size_t width() const override;
     std::size_t x_offset() const override;
     std::size_t y_offset() const override;
@@ -337,7 +310,6 @@ public:
     tetromino_color color() const override;
     std::size_t heigth() const override;
     std::vector<int> to_vector() const override;
-    tetromino_type type() const override;
     std::size_t width() const override;
     std::size_t x_offset() const override;
     std::size_t y_offset() const override;

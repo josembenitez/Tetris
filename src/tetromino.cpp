@@ -111,12 +111,6 @@ std::vector<int> i_tetromino::to_vector() const
 }
 
 
-tetromino_type i_tetromino::type() const
-{
-    return tetromino_type::i_block;
-}
-
-
 std::size_t i_tetromino::width() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 4 : 1;
@@ -203,12 +197,6 @@ std::vector<int> j_tetromino::to_vector() const
 }
 
 
-tetromino_type j_tetromino::type() const
-{
-    return tetromino_type::j_block;
-}
-
-
 std::size_t j_tetromino::width() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 3 : 2;
@@ -274,12 +262,6 @@ std::vector<int> l_tetromino::to_vector() const
 }
 
 
-tetromino_type l_tetromino::type() const
-{
-    return tetromino_type::l_block;
-}
-
-
 std::size_t l_tetromino::width() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 3 : 2;
@@ -339,12 +321,6 @@ std::size_t o_tetromino::heigth() const
 std::vector<int> o_tetromino::to_vector() const
 {
     return rotation_states.at(ornt);
-}
-
-
-tetromino_type o_tetromino::type() const
-{
-    return tetromino_type::o_block;
 }
 
 
@@ -414,12 +390,6 @@ std::vector<int> s_tetromino::to_vector() const
 }
 
 
-tetromino_type s_tetromino::type() const
-{
-    return tetromino_type::s_block;
-}
-
-
 std::size_t s_tetromino::width() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 3 : 2;
@@ -486,12 +456,6 @@ std::vector<int> t_tetromino::to_vector() const
 }
 
 
-tetromino_type t_tetromino::type() const
-{
-    return tetromino_type::t_block;
-}
-
-
 std::size_t t_tetromino::width() const
 {
     return ornt == orientation::flat_down || ornt == orientation::flat_up ? 3 : 2;
@@ -555,12 +519,6 @@ std::size_t z_tetromino::heigth() const
 std::vector<int> z_tetromino::to_vector() const
 {
     return rotation_states.at(ornt);
-}
-
-
-tetromino_type z_tetromino::type() const
-{
-    return tetromino_type::z_block;
 }
 
 

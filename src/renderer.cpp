@@ -9,17 +9,6 @@
 #include "tetromino.h"
 
 
-const std::map<cell_state, tetromino_color> renderer::colormap = {
-    { cell_state::filled_with_i, i_tetromino().color(), },
-    { cell_state::filled_with_j, j_tetromino().color(), },
-    { cell_state::filled_with_l, l_tetromino().color(), },
-    { cell_state::filled_with_o, o_tetromino().color(), },
-    { cell_state::filled_with_s, s_tetromino().color(), },
-    { cell_state::filled_with_t, t_tetromino().color(), },
-    { cell_state::filled_with_z, z_tetromino().color(), },
-};
-
-
 renderer::renderer(std::size_t window_width, std::size_t window_height)
     : window_width(window_width),
       window_height(window_height)
@@ -86,11 +75,10 @@ void renderer::get_color_coordinates(cell_state st, uint8_t &r, uint8_t &g, uint
     if (st == cell_state::empty)
     {
         r = 0x1E, g = 0x1E, b = 0x1E;
-        return;
     }
     else
     {
-        get_color_coordinates(colormap.at(st), r, g, b);
+        r = 0xFF, g = 0xFF, b = 0xFF;
     }
 }
 
