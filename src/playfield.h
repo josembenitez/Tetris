@@ -3,20 +3,11 @@
 #define PLAYFIELD_H
 
 
+#include <optional>
 #include <vector>
 
-
 class tetromino;
-
-
-/**
- * Each of the possible states of a playfield cell.
- */
-enum class cell_state
-{
-    empty,
-    busy,
-};
+enum class tetromino_color;
 
 
 /**
@@ -90,7 +81,7 @@ public:
      * 
      * @return A vector containing all the cells of this playfield.
      */
-    std::vector<cell_state> to_vector() const;
+    std::vector<std::optional<tetromino_color>> to_vector() const;
 
 private:
     /**
@@ -104,7 +95,7 @@ private:
     /**
      * Vector representing the actual playfield.
      */
-    std::vector<cell_state> well;
+    std::vector<std::optional<tetromino_color>> well;
 };
 
 

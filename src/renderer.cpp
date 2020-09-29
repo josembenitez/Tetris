@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <map>
+#include <optional>
 
 #include "SDL.h"
 
@@ -68,56 +69,51 @@ void renderer::render(const playfield &pf, const tetromino &t, int x, int y, uin
 }
 
 
-void renderer::get_color_coordinates(cell_state st, uint8_t &r, uint8_t &g, uint8_t &b) const
+void renderer::get_color_coordinates(std::optional<tetromino_color> color,
+                                     uint8_t &r, uint8_t &g, uint8_t &b) const
 {
-    tetromino_color color;
-
-    if (st == cell_state::empty)
+    if (color)
     {
-        r = 0x1E, g = 0x1E, b = 0x1E;
+        switch (color.value())
+        {
+        case tetromino_color::cyan:
+            r = 0x0, g = 0xFF, b = 0xFF;
+            break;
+        
+        case tetromino_color::blue:
+            r = 0x0, g = 0x0, b = 0xFF;
+            break;
+        
+        case tetromino_color::orange:
+            r = 0xFF, g = 0x7F, b = 0x0;
+            break;
+        
+        case tetromino_color::yellow:
+            r = 0xFF, g = 0xFF, b = 0x0;
+            break;
+        
+        case tetromino_color::green:
+            r = 0x0, g = 0xFF, b = 0x0;
+            break;
+        
+        case tetromino_color::purple:
+            r = 0x80, g = 0x0, b = 0x80;
+            break;
+        
+        case tetromino_color::red:
+            r = 0xFF, g = 0x0, b = 0x0;
+            break;
+        
+        default:
+            break;
+
+        }
     }
     else
     {
-        r = 0xFF, g = 0xFF, b = 0xFF;
+        r = 0x1E, g = 0x1E, b = 0x1E;
     }
-}
-
-
-void renderer::get_color_coordinates(tetromino_color color, uint8_t &r, uint8_t &g, uint8_t &b) const
-{
-    switch (color)
-    {
-    case tetromino_color::cyan:
-        r = 0x0, g = 0xFF, b = 0xFF;
-        break;
     
-    case tetromino_color::blue:
-        r = 0x0, g = 0x0, b = 0xFF;
-        break;
-    
-    case tetromino_color::orange:
-        r = 0xFF, g = 0x7F, b = 0x0;
-        break;
-    
-    case tetromino_color::yellow:
-        r = 0xFF, g = 0xFF, b = 0x0;
-        break;
-    
-    case tetromino_color::green:
-        r = 0x0, g = 0xFF, b = 0x0;
-        break;
-    
-    case tetromino_color::purple:
-        r = 0x80, g = 0x0, b = 0x80;
-        break;
-    
-    case tetromino_color::red:
-        r = 0xFF, g = 0x0, b = 0x0;
-        break;
-    
-    default:
-        break;
-    }
 }
 
 
@@ -126,7 +122,7 @@ void renderer::render_background(std::size_t cell_width, std::size_t cell_height
     uint8_t r = 0x0, g = 0x0, b = 0x0;
 
     // Clear screen with "empty" color.
-    get_color_coordinates(cell_state::empty, r, g, b);
+    get_color_coordinates(std::nullopt, r, g, b);
     SDL_SetRenderDrawColor(sdl_renderer, r, g, b, 0xFF);
     SDL_RenderClear(sdl_renderer);
 
@@ -154,7 +150,7 @@ void renderer::render_playfield(const playfield &pf, std::size_t cell_width, std
     const auto cells = pf.to_vector();
     for (std::size_t i = 0; i < cells.size(); ++i)
     {
-        if (cells[i] != cell_state::empty)
+        if (cells[i])
         {
             const std::size_t x_c = i % pf.columns();
             const std::size_t y_c = i / pf.columns();

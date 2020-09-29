@@ -1,13 +1,14 @@
 
 #include <algorithm>
 #include <iostream>
+#include <optional>
 
 #include "playfield.h"
 #include "tetromino.h"
 
 
 playfield::playfield(std::size_t width, std::size_t height)
-    : well(std::vector<cell_state>(width * height, cell_state::empty)),
+    : well(std::vector<std::optional<tetromino_color>>(width * height)),
       width(width),
       height(height)
 {
@@ -32,7 +33,7 @@ bool playfield::can_tetromino_move_to(const tetromino &t, int x, int y) const
     {
         const std::size_t x_t = i % t.bounding_box_size();
         const std::size_t y_t = i / t.bounding_box_size();
-        if (tetrions[i] && well[(y + y_t) * width + x + x_t] != cell_state::empty)
+        if (tetrions[i] && well[(y + y_t) * width + x + x_t].has_value())
         {
             return false;
         }
@@ -50,7 +51,7 @@ std::size_t playfield::clear_rows()
         const std::size_t end_row = *(rows.begin()) + 1;
         const std::size_t start_row = *(rows.end() - 1);
         const std::size_t num_deleted_rows = end_row - start_row;
-        std::vector<cell_state> tmp(well.size(), cell_state::empty);
+        std::vector<std::optional<tetromino_color>> tmp(well.size());
         std::copy(well.cbegin(), well.cbegin() + start_row * width,
                   tmp.begin() + num_deleted_rows * width);
         std::copy(well.cbegin() + end_row * width, well.cend(),
@@ -88,7 +89,7 @@ std::vector<std::size_t> playfield::filled_rows() const
 
 bool playfield::is_row_filled(std::size_t row) const
 {
-    auto cell_is_not_empy = [] (cell_state st) { return st != cell_state::empty; };
+    auto cell_is_not_empy = [] (std::optional<tetromino_color> c) { return c.has_value(); };
     return std::count_if(well.cbegin() + row * width,
                          well.cbegin() + (row + 1) * width,
                          cell_is_not_empy) == width;
@@ -110,13 +111,13 @@ void playfield::store_tetromino_into(const tetromino &t, int x, int y)
         {
             const std::size_t x_t = i % t.bounding_box_size();
             const std::size_t y_t = i / t.bounding_box_size();
-            well[(y + y_t) * width + x + x_t] = cell_state::busy;
+            well[(y + y_t) * width + x + x_t] = t.color();
         }
     }
 }
 
 
-std::vector<cell_state> playfield::to_vector() const
+std::vector<std::optional<tetromino_color>> playfield::to_vector() const
 {
     return std::vector(well);
 }

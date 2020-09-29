@@ -4,6 +4,7 @@
 
 
 #include <map>
+#include <optional>
 
 #include "SDL.h"
 
@@ -60,20 +61,7 @@ private:
      * Height (in pixels) of the game window.
      */
     std::size_t window_height;
-    /**
-     * Map associating cell states and tetromino colors.
-     */
-    static const std::map<cell_state, tetromino_color> colormap;
 
-    /**
-     * Retrieves the RGB values for the given cell state.
-     * 
-     * @param st The given cell state as defined by #cell_state.
-     * @param r The desired red component.
-     * @param g The desired green component.
-     * @param b The desired blue component.
-     */
-    void get_color_coordinates(cell_state st, uint8_t &r, uint8_t &g, uint8_t &b) const;
     /**
      * Retrieves the RGB values for the given tetromino color.
      * 
@@ -82,7 +70,8 @@ private:
      * @param g The desired green component.
      * @param b The desired blue component.
      */
-    void get_color_coordinates(tetromino_color color, uint8_t &r, uint8_t &g, uint8_t &b) const;
+    void get_color_coordinates(std::optional<tetromino_color> color,
+                               uint8_t &r, uint8_t &g, uint8_t &b) const;
     /**
      * Renders the window's background.
      * 
